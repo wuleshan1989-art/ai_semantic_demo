@@ -6,6 +6,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus, coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Folder, FileText, Plus, Save, ChevronDown, ChevronRight, GitCommit, GitBranch, GitPullRequest, Sliders, Clock, Search, Activity, Settings, Layers, Terminal, Database, MessageCircle, X, Send, Paperclip, Mic, Square, Zap, CloudLightning, Edit2, Edit3, Maximize, Minimize, Cpu } from './Icons';
 import Logo from './Logo';
+import AirsIcon from './AirsIcon';
 import { useApp } from './AppContext';
 import ModelVisualEditor from './ModelVisualEditor';
 import OntologyVisualEditor from './OntologyVisualEditor';
@@ -1834,7 +1835,7 @@ const FileManager = () => {
                         flexShrink: 0,
                         marginTop: '2px'
                     }}>
-                        <Logo size={20} />
+                        <AirsIcon size={20} />
                     </div>
                 )}
 

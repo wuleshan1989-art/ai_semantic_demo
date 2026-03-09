@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus, coy } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import Logo from './Logo';
+import AirsIcon from './AirsIcon';
 import { User, Paperclip, Mic, Square, Send, Box, Plus, Chat, X, ChevronDown, ChevronRight, Activity, Terminal, MessageSquare, Database, FileText, CloudLightning, Zap, Edit3, Save, Folder, Settings, Maximize, Minimize, Bot, Cpu, Layout, Image, Code, Crosshair } from './Icons';
 import { useApp } from './AppContext';
 import CodeEditor from './CodeEditor';
@@ -947,7 +948,7 @@ const ChatPage = () => {
                         flexShrink: 0,
                         marginTop: '2px'
                     }}>
-                        <Logo size={20} />
+                        <AirsIcon size={20} />
                     </div>
                 )}
 
