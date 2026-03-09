@@ -4,6 +4,7 @@ const cors = require('cors');
 const Agent = require('./agent');
 const mcpServer = require('./mcp-server'); // MCP Integration
 const sqlite3 = require('sqlite3').verbose();
+const { config, printConfigWarnings } = require('./config');
 
 // --- SQLite Database Setup ---
 const db = new sqlite3.Database(':memory:'); // Use in-memory DB for testing
@@ -3514,7 +3515,10 @@ app.get('/api/eval-sets/:setId/traces/:traceId/diff', async (req, res) => {
     }
 });
 
-const PORT = 3001;
+// 打印配置警告
+printConfigWarnings();
+
+const PORT = config.PORT;
 app.listen(PORT, () => {
   console.log(`后端服务运行在 http://localhost:${PORT}`);
 });

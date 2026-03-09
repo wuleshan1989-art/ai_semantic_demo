@@ -1,6 +1,7 @@
 // 智能体核心逻辑，采用claude code架构
 
 const axios = require('axios');
+const { config } = require('./config');
 
 class Agent {
   constructor() {
@@ -8,14 +9,14 @@ class Agent {
     this.skills = {};
     this.loadKnowledgeBase();
     this.loadSkills();
-    
+
     // Cloud Model Config
     // Ensure default config is robust for demo
     this.modelConfig = {
-        apiKey: process.env.ARK_API_KEY || '5f01e800-04df-4195-9a48-a7909f5ea7f2',
-        endpoint: process.env.ARK_ENDPOINT || 'https://ark-cn-beijing.bytedance.net/api/v3/chat/completions',
-        model: process.env.ARK_MODEL || 'ep-20250609110517-6zp6k',
-        provider: process.env.ARK_PROVIDER || 'doubao'
+        apiKey: config.ARK_API_KEY,
+        endpoint: config.ARK_ENDPOINT,
+        model: config.ARK_MODEL,
+        provider: config.ARK_PROVIDER
     };
   }
 
@@ -57,7 +58,7 @@ class Agent {
         description: '执行数学计算',
         execute: (expression) => {
           try {
-            const result = eval(expression);
+            const result = this.safeCalculate(expression);
             return {
               reply: `计算结果是 ${result}`,
               steps: [
@@ -194,6 +195,54 @@ class Agent {
 (注：在此演示模式下，'搜索' 功能仍可模拟使用)`,
         steps: [{ type: 'thought', content: `API 调用异常 (${provider})，启用 Mock 回退模式。` }]
     });
+  }
+
+  // 安全的计算器函数 - 不使用 eval()
+  safeCalculate(expression) {
+    // 只允许数字和基本运算符
+    const sanitized = expression.replace(/[^0-9+\-*/().%\s]/g, '');
+
+    // 使用简单的解析器处理基本运算
+    try {
+      return this.simpleMathParser(sanitized);
+    } catch (e) {
+      throw new Error('Invalid expression');
+    }
+  }
+
+  // 简单的数学表达式解析器
+  simpleMathParser(expr) {
+    // 移除所有空白
+    expr = expr.replace(/\s/g, '');
+
+    if (!expr) return 0;
+
+    // 处理括号
+    while (expr.includes('(')) {
+      expr = expr.replace(/\(([^()]+)\)/g, (_match, group) => {
+        return this.simpleMathParser(group);
+      });
+    }
+
+    // 处理乘除
+    while (/[*/]/.test(expr)) {
+      expr = expr.replace(/(-?[\d.]+)([*/])(-?[\d.]+)/, (_match, a, op, b) => {
+        const numA = parseFloat(a);
+        const numB = parseFloat(b);
+        return op === '*' ? numA * numB : numA / numB;
+      });
+    }
+
+    // 处理加减
+    while (/[+-]/.test(expr.replace(/^-/, ''))) {
+      expr = expr.replace(/(-?[\d.]+)([+-])(-?[\d.]+)/, (_match, a, op, b) => {
+        const numA = parseFloat(a);
+        const numB = parseFloat(b);
+        return op === '+' ? numA + numB : numA - numB;
+      });
+    }
+
+    return parseFloat(expr);
   }
 
   // 分析消息意图
