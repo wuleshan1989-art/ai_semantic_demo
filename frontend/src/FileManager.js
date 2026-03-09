@@ -1701,7 +1701,7 @@ const FileManager = () => {
             zIndex: 10
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: 0 }}>
-              <Logo size={24} />
+              <AirsIcon size={24} />
               
               {/* Session Switcher */}
               <div style={{ position: 'relative', flex: 1, minWidth: 0 }}>
