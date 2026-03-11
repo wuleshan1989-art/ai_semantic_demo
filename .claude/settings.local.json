@@ -6,7 +6,19 @@
       "Bash(npm install axios)",
       "Bash(git init)",
       "Bash(npm install express body-parser cors)",
-      "Bash(npm install simple-git --save)"
+      "Bash(npm install simple-git --save)",
+      "Bash(node test_calculator.js)",
+      "Bash(git add SECURITY_FIXES.md)",
+      "Bash(git commit -m \"Add security fixes documentation\")",
+      "Bash(git checkout HEAD~1 -- frontend/src/Layout.js)",
+      "Bash(git add frontend/src/ChatPage.js frontend/src/FileManager.js)",
+      "Bash(git commit -m \"统一AIRS相关界面使用AirsIcon表情logo:*)",
+      "Bash(git add frontend/src/FileManager.js)",
+      "Bash(git commit -m \"FileManager页面顶部也使用AirsIcon:*)",
+      "Bash(git remote add origin https://github.com/wuleshan1989-art/ai_semantic_demo.git)",
+      "Bash(git remote set-url origin https://github.com/wuleshan1989-art/ai_semantic_demo.git)",
+      "Bash(git add -u)",
+      "Bash(git add skills/)"
     ]
   }
 }
